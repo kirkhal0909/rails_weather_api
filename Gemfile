@@ -27,6 +27,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'rufus-scheduler'
 gem 'grape'
+gem 'grape_on_rails_routes'
 gem 'delayed_job_active_record'
 gem 'trailblazer'
 
@@ -34,6 +35,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
+  gem 'pry'
 end
 
 group :test do
