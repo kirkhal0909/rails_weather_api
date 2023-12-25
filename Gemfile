@@ -29,6 +29,7 @@ gem 'grape'
 gem 'grape_on_rails_routes'
 gem 'delayed_job_active_record'
 gem 'trailblazer'
+gem 'interactor'
 
 gem 'dotenv-rails'
 

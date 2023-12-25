@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: rails_weather_api_production
-  username: rails_weather_api
-  password: <%= ENV['RAILS_WEATHER_API_DATABASE_PASSWORD'] %>

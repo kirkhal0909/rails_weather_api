@@ -8,10 +8,7 @@ class AccuWeather::Client
   end
 
   def get_historical_data(location_id)
-    response = get("#{location_id}/historical/24", { apikey: @api_key })
-    return JSON.parse(response.body) if response.is_a?(Net::HTTPSuccess)
-
-    puts "Ошибка #{response.code}: #{response.message}"
+    get("#{location_id}/historical/24", { apikey: @api_key })
   end
 
   private
@@ -23,6 +20,9 @@ class AccuWeather::Client
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
 
-    http.request(request)
+    response = http.request(request)
+    return { response: JSON.parse(response.body).map(&:deep_symbolize_keys) } if response.is_a?(Net::HTTPSuccess)
+
+    { error: true, code: response.code, message: response.message }
   end
 end

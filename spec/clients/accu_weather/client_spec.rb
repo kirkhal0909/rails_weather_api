@@ -14,8 +14,8 @@ RSpec.describe AccuWeather::Client do
         client = AccuWeather::Client.new
         result = client.get_historical_data(location_id)
 
-        expect(result).to be_an(Array)
-        expect(result.first).to include('LocalObservationDateTime', 'Temperature')
+        expect(result).to be_an(Hash)
+        expect(result[:response].first).to include(:LocalObservationDateTime, :Temperature)
       end
     end
 
@@ -26,7 +26,7 @@ RSpec.describe AccuWeather::Client do
           body: 'Not Found'
         )
 
-        expect(AccuWeather::Client.new.get_historical_data(location_id)).to be_nil
+        expect(AccuWeather::Client.new.get_historical_data(location_id)).to include(:code, :error, :message)
       end
     end
   end

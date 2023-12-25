@@ -2,18 +2,16 @@ require 'database_cleaner/active_record'
 
 RSpec.configure do |config|
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner[:active_record].clean_with(:truncation)
+    DatabaseCleaner[:active_record].strategy = :transaction
   end
 
   config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner[:active_record].start
   end
 
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.append_after(:each) do
-    DatabaseCleaner.clean
+  config.after(:each) do
+    DatabaseCleaner[:active_record].clean
+    CACHE.clear
   end
 end
